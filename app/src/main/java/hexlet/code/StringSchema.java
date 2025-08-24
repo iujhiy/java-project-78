@@ -25,19 +25,24 @@ public class StringSchema {
     }
 
     public boolean isValid(String object) {
-        if (isRequiredSchema) {
-            if (object == null || object.isEmpty()) {
+        if (isRequiredSchema && isNullOrEmpty(object)) {
                 return false;
-            }
         }
-        if (!(object == null) && object.length() <  minLengthSchema) {
+
+        if (object != null && object.length() <  minLengthSchema) {
             return false;
         }
+
         if (containsStringSchema != null
-        && !(object.contains(containsStringSchema))) {
+                && !(object.contains(containsStringSchema))) {
             return false;
         }
+
         return true;
+    }
+
+    private boolean isNullOrEmpty(String object) {
+        return (object == null || object.isEmpty());
     }
 
     private void setMinLengthSchema(int minLengthSchema) {
