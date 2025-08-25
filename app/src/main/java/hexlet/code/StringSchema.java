@@ -2,39 +2,38 @@ package hexlet.code;
 
 public class StringSchema {
     private boolean isRequiredSchema = false;
-    private int minLengthSchema = 0;
-    private String containsStringSchema;
+    private int minLengthSchemaField = 0;
+    private String containsStringSchemaField;
 
-    public StringSchema required() {
-        setRequiredSchema();
-        return this;
+    public void required() {
+        isRequiredSchema = true;
     }
 
     public StringSchema minLength(int minLengthSchema) {
-        if (minLengthSchema != this.minLengthSchema) {
+        if (minLengthSchema != minLengthSchemaField) {
             setMinLengthSchema(minLengthSchema);
         }
         return this;
     }
 
     public StringSchema contains(String containsStringSchema) {
-        if (!(containsStringSchema.equals(this.containsStringSchema))) {
-            setContainsStringSchema(containsStringSchema);
+        if (!(containsStringSchema.equals(containsStringSchemaField))) {
+            setContainsStringSchemaField(containsStringSchema);
         }
         return this;
     }
 
     public boolean isValid(String object) {
         if (isRequiredSchema && isNullOrEmpty(object)) {
-                return false;
-        }
-
-        if (object != null && object.length() <  minLengthSchema) {
             return false;
         }
 
-        if (containsStringSchema != null
-                && !(object.contains(containsStringSchema))) {
+        if (!isNullOrEmpty(object) && object.length() <  minLengthSchemaField) {
+            return false;
+        }
+
+        if (!isNullOrEmpty(containsStringSchemaField)
+                && !(object.contains(containsStringSchemaField))) {
             return false;
         }
 
@@ -46,14 +45,10 @@ public class StringSchema {
     }
 
     private void setMinLengthSchema(int minLengthSchema) {
-        this.minLengthSchema = minLengthSchema;
+        this.minLengthSchemaField = minLengthSchema;
     }
 
-    private void setContainsStringSchema(String containsStringSchema) {
-        this.containsStringSchema = containsStringSchema;
-    }
-
-    private void setRequiredSchema() {
-        isRequiredSchema = true;
+    private void setContainsStringSchemaField(String containsStringSchemaField) {
+        this.containsStringSchemaField = containsStringSchemaField;
     }
 }
