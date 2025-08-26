@@ -3,14 +3,9 @@ package hexlet.code;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NumberSchema {
-    private boolean isRequiredSchema = false;
+public class NumberSchema extends BaseSchema<Integer> {
     private final Map<String, Integer> minMaxValuesField = new HashMap<>();
     private boolean isPositive = false;
-
-    public void required() {
-        isRequiredSchema = true;
-    }
 
     public NumberSchema range(int minNumber, int maxNumber) {
         minMaxValuesField.put("minValue", minNumber);
@@ -23,13 +18,9 @@ public class NumberSchema {
         return this;
     }
 
-    public boolean isValid(Integer object) {
-        if (isRequiredSchema && object == null) {
-            return false;
-        }
-
+    @Override
+    protected boolean customValidate(Integer object) {
         if (object != null) {
-
             if (!minMaxValuesField.isEmpty()) {
                 var minNumber = minMaxValuesField.get("minValue");
                 var maxNumber = minMaxValuesField.get("maxValue");
@@ -42,7 +33,6 @@ public class NumberSchema {
                 return false;
             }
         }
-
         return true;
     }
 }

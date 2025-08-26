@@ -1,13 +1,8 @@
 package hexlet.code;
 
-public class StringSchema {
-    private boolean isRequiredSchema = false;
+public class StringSchema extends BaseSchema<String> {
     private int minLengthSchemaField = 0;
     private String containsStringSchemaField;
-
-    public void required() {
-        isRequiredSchema = true;
-    }
 
     public StringSchema minLength(int minLengthSchema) {
         if (minLengthSchema != minLengthSchemaField) {
@@ -23,7 +18,8 @@ public class StringSchema {
         return this;
     }
 
-    public boolean isValid(String object) {
+    @Override
+    protected boolean customValidate(String object) {
         if (isRequiredSchema && isNullOrEmpty(object)) {
             return false;
         }
