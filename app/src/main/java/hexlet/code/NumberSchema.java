@@ -6,67 +6,43 @@ import java.util.Map;
 public class NumberSchema {
     private boolean isRequiredSchema = false;
     private final Map<String, Integer> minMaxValuesField = new HashMap<>();
-    private int minLengthSchemaField = 0;
-    private String containsStringSchemaField;
+    private boolean isPositive = false;
 
     public void required() {
         isRequiredSchema = true;
     }
 
-    public StringSchema minLength(int minLengthSchema) {
-        if (minLengthSchema != minLengthSchemaField) {
-            setMinLengthSchema(minLengthSchema);
-        }
+    public NumberSchema range(int minNumber, int maxNumber) {
+        minMaxValuesField.put("minValue", minNumber);
+        minMaxValuesField.put("maxValue", maxNumber);
         return this;
     }
 
-    public StringSchema contains(String containsStringSchema) {
-        if (!(containsStringSchema.equals(containsStringSchemaField))) {
-            setContainsStringSchemaField(containsStringSchema);
-        }
-        return this;
-    }
-
-    public boolean isValid(String object) {
-        if (isRequiredSchema && isNullOrEmpty(object)) {
-            return false;
-        }
-
-        if (!isNullOrEmpty(object) && object.length() <  minLengthSchemaField) {
-            return false;
-        }
-
-        if (!isNullOrEmpty(containsStringSchemaField)
-                && !(object.contains(containsStringSchemaField))) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private boolean isNullOrEmpty(String object) {
-        return (object == null || object.isEmpty());
-    }
-
-    private void setMinLengthSchema(int minLengthSchema) {
-        this.minLengthSchemaField = minLengthSchema;
-    }
-
-    private void setContainsStringSchemaField(String containsStringSchemaField) {
-        this.containsStringSchemaField = containsStringSchemaField;
-    }
-
-
-
-
-
-    public NumberSchema range(Object number1, Object number2) {
-        return this;
-    }
     public NumberSchema positive() {
+        isPositive = true;
         return this;
     }
-    public boolean isValid(Object object) {
+
+    public boolean isValid(Integer object) {
+        if (isRequiredSchema && object == null) {
+            return false;
+        }
+
+        if (object != null) {
+
+            if (!minMaxValuesField.isEmpty()) {
+                var minNumber = minMaxValuesField.get("minValue");
+                var maxNumber = minMaxValuesField.get("maxValue");
+                if (object < minNumber || object > maxNumber) {
+                    return false;
+                }
+            }
+
+            if (isPositive && object <= 0) {
+                return false;
+            }
+        }
+
         return true;
     }
 }

@@ -16,16 +16,11 @@ sonar {
 
 tasks.test {
     useJUnitPlatform()
-}
-
-tasks.test {
     finalizedBy(tasks.jacocoTestReport)
 }
-tasks.jacocoTestReport {
-    dependsOn(tasks.test)
-}
 
 tasks.jacocoTestReport {
+    dependsOn(tasks.test)
     reports {
         xml.required = true
         csv.required = false
