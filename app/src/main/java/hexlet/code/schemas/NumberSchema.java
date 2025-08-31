@@ -21,6 +21,13 @@ public class NumberSchema extends BaseSchema<Integer> {
     }
 
     @Override
+    public NumberSchema required() {
+        super.required();
+        return this;
+    }
+
+
+    @Override
     protected boolean customValidate(Integer object) {
         if (object != null) {
             if (!minMaxValuesField.isEmpty()) {

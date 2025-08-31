@@ -21,6 +21,13 @@ public class StringSchema extends BaseSchema<String> {
     }
 
     @Override
+    public StringSchema required() {
+        super.required();
+        return this;
+    }
+
+
+    @Override
     protected boolean customValidate(String object) {
         if (isRequiredSchema && isNullOrEmpty(object)) {
             return false;

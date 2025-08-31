@@ -1,5 +1,6 @@
 package hexlet.code.schemas;
 
+import hexlet.code.BaseSchema;
 import hexlet.code.Validator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -15,13 +16,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MapSchemaTest {
     private MapSchema<String, String> schema;
+    Map<String, BaseSchema<String>> schemas;
 
     @BeforeEach
     public void setUp(TestInfo testInfo) {
-        Validator validator = new Validator();
+        var validator = new Validator();
         schema = validator.map();
         if (testInfo.getTags().contains("required")) {
             schema.required();
+        }
+        if (testInfo.getTags().contains("initializedMap")) {
+            schemas = new HashMap<>();
+            schemas.put("firstName", validator.string().required());
+            schemas.put("lastName", validator.string().required().minLength(2));
         }
     }
 
@@ -63,4 +70,39 @@ public class MapSchemaTest {
         assertFalse(schema1);
         assertFalse(schema2);
     }
+
+    @Test
+    @Tag("required")
+    @Tag("initializedMap")
+    public void shapeTestShouldReturnTrue() {
+        Map<String, String> human1 = new HashMap<>();
+        human1.put("firstName", "John");
+        human1.put("lastName", "Smith");
+        var schema1 = schema.shape(schemas).isValid(human1);
+        assertTrue(schema1);
+    }
+
+    @Test
+    @Tag("required")
+    @Tag("initializedMap")
+    public void shapeNullTestShouldReturnFalse() {
+        Map<String, String> human2 = new HashMap<>();
+        human2.put("firstName", "John");
+        human2.put("lastName", null);
+
+        var schema1 = schema.shape(schemas).isValid(human2);
+        assertFalse(schema1);
+    }
+
+    @Test
+    @Tag("required")
+    @Tag("initializedMap")
+    public void shapeShortStringTestShouldReturnFalse() {
+        Map<String, String> human3 = new HashMap<>();
+        human3.put("firstName", "Anna");
+        human3.put("lastName", "B");
+        var schema1 = schema.shape(schemas).isValid(human3);
+        assertFalse(schema1);
+    }
+
 }
