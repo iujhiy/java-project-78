@@ -25,6 +25,11 @@ public abstract class BaseSchema<T> {
             return true;
         }
         addCustomValidate(object);
+        for (var schema: checks.values()) {
+            if (!schema.test(object)) {
+                return false;
+            }
+        }
         return true;
     }
 

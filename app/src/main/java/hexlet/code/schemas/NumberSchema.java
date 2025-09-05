@@ -39,7 +39,8 @@ public class NumberSchema extends BaseSchema<Integer> {
 //            }
         var minNumber = minMaxValuesField.get("minValue");
         var maxNumber = minMaxValuesField.get("maxValue");
-        checks.put("Range", v -> (v != null
+        checks.put("Range", v -> (
+            v != null
             && !minMaxValuesField.isEmpty()
             && v > minNumber && v < maxNumber));
         checks.put("Positive", v -> (isPositive && v > 0));

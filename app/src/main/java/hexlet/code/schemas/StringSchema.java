@@ -29,22 +29,22 @@ public class StringSchema extends BaseSchema<String> {
 
     @Override
     protected void addCustomValidate(String object) {
-        if (isRequiredSchema && isNullOrEmpty(object)) {
-            return false;
-        }
-
-        if (!isNullOrEmpty(object) && object.length() <  minLengthSchemaField) {
-            return false;
-        }
-
-        if (!isNullOrEmpty(containsStringSchemaField)
-                && !(object.contains(containsStringSchemaField))) {
-            return false;
-        }
-
-        return true;
+//        if (isRequiredSchema && isNullOrEmpty(object)) {
+//            return false;
+//        }
+//
+//        if (!isNullOrEmpty(object) && object.length() <  minLengthSchemaField) {
+//            return false;
+//        }
+//
+//        if (!isNullOrEmpty(containsStringSchemaField)
+//                && !(object.contains(containsStringSchemaField))) {
+//            return false;
+//        }
         addCheck("NullOrEmpty", v -> (!(isRequiredSchema && isNullOrEmpty(v))));
-        addCheck("MinLength", v -> (isNullOrEmpty(v) && v.length() >=  minLengthSchemaField))
+        addCheck("MinLength", v -> (isNullOrEmpty(v) && v.length() >=  minLengthSchemaField));
+        addCheck("Contains", v -> (!isNullOrEmpty(containsStringSchemaField)
+                && v.contains(containsStringSchemaField)));
     }
 
     private boolean isNullOrEmpty(String object) {
