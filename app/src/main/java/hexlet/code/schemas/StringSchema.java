@@ -28,7 +28,7 @@ public class StringSchema extends BaseSchema<String> {
 
 
     @Override
-    protected boolean customValidate(String object) {
+    protected void addCustomValidate(String object) {
         if (isRequiredSchema && isNullOrEmpty(object)) {
             return false;
         }
@@ -43,6 +43,8 @@ public class StringSchema extends BaseSchema<String> {
         }
 
         return true;
+        addCheck("NullOrEmpty", v -> (!(isRequiredSchema && isNullOrEmpty(v))));
+        addCheck("MinLength", v -> (isNullOrEmpty(v) && v.length() >=  minLengthSchemaField))
     }
 
     private boolean isNullOrEmpty(String object) {

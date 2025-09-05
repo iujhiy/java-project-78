@@ -28,20 +28,21 @@ public class NumberSchema extends BaseSchema<Integer> {
 
 
     @Override
-    protected boolean customValidate(Integer object) {
-        if (object != null) {
-            if (!minMaxValuesField.isEmpty()) {
-                var minNumber = minMaxValuesField.get("minValue");
-                var maxNumber = minMaxValuesField.get("maxValue");
-                if (object < minNumber || object > maxNumber) {
-                    return false;
-                }
-            }
-
-            if (isPositive && object <= 0) {
-                return false;
-            }
-        }
-        return true;
+    protected void addCustomValidate(Integer object) {
+//        if (object != null) {
+//            if (!minMaxValuesField.isEmpty()) {
+//                var minNumber = minMaxValuesField.get("minValue");
+//                var maxNumber = minMaxValuesField.get("maxValue");
+//                if (object < minNumber || object > maxNumber) {
+//                    return false;
+//                }
+//            }
+        var minNumber = minMaxValuesField.get("minValue");
+        var maxNumber = minMaxValuesField.get("maxValue");
+        checks.put("Range", v -> (v != null
+            && !minMaxValuesField.isEmpty()
+            && v > minNumber && v < maxNumber));
+        checks.put("Positive", v -> (isPositive && v > 0));
+        //}
     }
 }

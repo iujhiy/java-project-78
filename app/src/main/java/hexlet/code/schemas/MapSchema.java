@@ -26,16 +26,16 @@ public class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
     }
 
     @Override
-    protected boolean customValidate(Map<K, V> object) {
-        if (mapSizeField != null && mapSizeField != object.size()) {
-            return false;
-        }
-        if (!schemasField.isEmpty()) {
-            if (!isValidSchema(object)) {
-                return false;
-            }
-        }
-        return true;
+    protected void addCustomValidate(Map<K, V> object) {
+//        if (mapSizeField != null && mapSizeField != object.size()) {
+//        }
+//        if (!schemasField.isEmpty()) {
+//            if (!isValidSchema(object)) {
+//            }
+//        }
+        addCheck("SizeOf", v -> (mapSizeField != null && mapSizeField == object.size()));
+        addCheck("Shape", v -> (!schemasField.isEmpty()
+            && isValidSchema(v)));
     }
 
     private boolean isValidSchema(Map<K, V> object) {
