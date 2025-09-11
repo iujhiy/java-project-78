@@ -32,7 +32,6 @@ public abstract class BaseSchema<T> {
         if (object == null) {
             return true;
         }
-        //addCustomValidate(object);
         for (var schema: checks.values()) {
             if (!schema.test(object)) {
                 return false;
@@ -40,6 +39,4 @@ public abstract class BaseSchema<T> {
         }
         return true;
     }
-
-    //protected abstract void addCustomValidate(T object);
 }
