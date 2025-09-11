@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class MapSchemaTest {
     private MapSchema<String, String> schema;
-    Map<String, BaseSchema<String>> schemas;
+    private Map<String, BaseSchema<String>> schemas;
 
     @BeforeEach
     public void setUp(TestInfo testInfo) {

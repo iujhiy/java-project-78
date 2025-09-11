@@ -12,12 +12,20 @@ public abstract class BaseSchema<T> {
         checks.put(name, validate);
     }
 
+    /**
+     * Marks the schema as required. When called, the schema will validate
+     * that the value is not null (or not empty for collections/strings).
+     * Subclasses should override this method to add type-specific required validation
+     * while preserving the fluent interface by returning the appropriate subtype.
+     *
+     * @return the current schema instance for method chaining
+     */
     public BaseSchema<T> required() {
         isRequiredSchema = true;
         return this;
     }
 
-    public boolean isValid(T object) {
+    public final boolean isValid(T object) {
         if (isRequiredSchema && object == null) {
             return false;
         }
