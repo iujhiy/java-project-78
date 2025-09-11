@@ -6,16 +6,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
-    private Integer mapSizeField;
-    private final Map<K, BaseSchema<V>> schemasField = new HashMap<>();
+    //private Integer mapSizeField;
+    //private final Map<K, BaseSchema<V>> schemasField = new HashMap<>();
 
     public MapSchema<K, V> shape(Map<K, BaseSchema<V>> schemas) {
-        schemasField.putAll(schemas);
+        //schemasField.putAll(schemas);
+        addCheck("Shape", v -> (!schemas.isEmpty()
+                && isValidSchema(v)));
         return this;
     }
 
-    public MapSchema<K, V> sizeof(int mapSize) {
-        mapSizeField = mapSize;
+    public MapSchema<K, V> sizeof(Integer mapSize) {
+        addCheck("SizeOf", v ->
+                (mapSize != null && mapSize == v.size()));
+        //mapSizeField = mapSize;
         return this;
     }
 
@@ -25,18 +29,17 @@ public class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
         return this;
     }
 
-    @Override
-    protected void addCustomValidate(Map<K, V> object) {
+ //   protected void addCustomValidate(Map<K, V> object) {
 //        if (mapSizeField != null && mapSizeField != object.size()) {
 //        }
 //        if (!schemasField.isEmpty()) {
 //            if (!isValidSchema(object)) {
 //            }
 //        }
-        addCheck("SizeOf", v -> (mapSizeField != null && mapSizeField == object.size()));
-        addCheck("Shape", v -> (!schemasField.isEmpty()
-            && isValidSchema(v)));
-    }
+        //addCheck("SizeOf", v -> (mapSizeField != null && mapSizeField == object.size()));
+        //addCheck("Shape", v -> (!schemasField.isEmpty()
+         //   && isValidSchema(v)));
+//    }
 
     private boolean isValidSchema(Map<K, V> object) {
         for (K key: object.keySet()) {

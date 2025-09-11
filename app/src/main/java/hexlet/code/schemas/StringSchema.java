@@ -27,7 +27,7 @@ public class StringSchema extends BaseSchema<String> {
     }
 
 
-    @Override
+
     protected void addCustomValidate(String object) {
 //        if (isRequiredSchema && isNullOrEmpty(object)) {
 //            return false;
