@@ -4,7 +4,7 @@ public class NumberSchema extends BaseSchema<Integer> {
     //private final Map<String, Integer> minMaxValuesField = new HashMap<>();
     //private boolean isPositive = false;
 
-    public NumberSchema range(int minNumber, int maxNumber) {
+    public final NumberSchema range(int minNumber, int maxNumber) {
         //minMaxValuesField.put("minValue", minNumber);
         //minMaxValuesField.put("maxValue", maxNumber);
         //var minNumber = minMaxValuesField.get("minValue");
@@ -14,13 +14,13 @@ public class NumberSchema extends BaseSchema<Integer> {
         return this;
     }
 
-    public NumberSchema positive() {
+    public final NumberSchema positive() {
         checks.put("Positive", v -> v > 0);
         return this;
     }
 
     @Override
-    public NumberSchema required() {
+    public final NumberSchema required() {
         super.required();
         return this;
     }

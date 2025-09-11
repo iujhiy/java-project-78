@@ -13,7 +13,7 @@ import java.util.TreeMap;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MapSchemaTest {
+public final class MapSchemaTest {
     private MapSchema<String, String> schema;
     Map<String, BaseSchema<String>> schemas;
 

@@ -4,19 +4,19 @@ public class StringSchema extends BaseSchema<String> {
     //private int minLengthSchemaField = 0;
     //private String containsStringSchemaField;
 
-    public StringSchema minLength(int minLengthSchema) {
+    public final StringSchema minLength(int minLengthSchema) {
         addCheck("MinLength", v -> (!isNullOrEmpty(v) && v.length() >=  minLengthSchema));
         return this;
     }
 
-    public StringSchema contains(String containsStringSchema) {
+    public final StringSchema contains(String containsStringSchema) {
         addCheck("Contains", v -> (!isNullOrEmpty(containsStringSchema)
                 && v.contains(containsStringSchema)));
         return this;
     }
 
     @Override
-    public StringSchema required() {
+    public final StringSchema required() {
         super.required();
         addCheck("NullOrEmpty", v -> (!(isRequiredSchema && isNullOrEmpty(v))));
         return this;
