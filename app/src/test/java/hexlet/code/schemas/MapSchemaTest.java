@@ -1,6 +1,5 @@
 package hexlet.code.schemas;
 
-import hexlet.code.BaseSchema;
 import hexlet.code.Validator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;

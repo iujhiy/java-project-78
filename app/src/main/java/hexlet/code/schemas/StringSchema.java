@@ -1,7 +1,5 @@
 package hexlet.code.schemas;
 
-import hexlet.code.BaseSchema;
-
 public class StringSchema extends BaseSchema<String> {
     //private int minLengthSchemaField = 0;
     //private String containsStringSchemaField;
