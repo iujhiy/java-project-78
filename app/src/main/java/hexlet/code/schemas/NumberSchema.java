@@ -2,9 +2,6 @@ package hexlet.code.schemas;
 
 import hexlet.code.BaseSchema;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class NumberSchema extends BaseSchema<Integer> {
     //private final Map<String, Integer> minMaxValuesField = new HashMap<>();
     //private boolean isPositive = false;

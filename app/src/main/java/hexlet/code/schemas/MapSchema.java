@@ -7,10 +7,10 @@ import java.util.Map;
 
 public class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
     //private Integer mapSizeField;
-    //private final Map<K, BaseSchema<V>> schemasField = new HashMap<>();
+    private final Map<K, BaseSchema<V>> schemasField = new HashMap<>();
 
     public MapSchema<K, V> shape(Map<K, BaseSchema<V>> schemas) {
-        //schemasField.putAll(schemas);
+        schemasField.putAll(schemas);
         addCheck("Shape", v -> (!schemas.isEmpty()
                 && isValidSchema(v)));
         return this;
