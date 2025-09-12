@@ -1,15 +1,12 @@
 package hexlet.code.schemas;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
-    private final Map<K, BaseSchema<V>> schemasField = new HashMap<>();
 
     public final MapSchema<K, V> shape(Map<K, BaseSchema<V>> schemas) {
-        schemasField.putAll(schemas);
         addCheck("Shape", v -> (!schemas.isEmpty()
-                && isValidSchema(v)));
+                && isValidSchema(v, schemas)));
         return this;
     }
 
@@ -25,10 +22,10 @@ public class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
         return this;
     }
 
-    private boolean isValidSchema(Map<K, V> object) {
-        for (K key: object.keySet()) {
-            var value = object.get(key);
-            BaseSchema<V> schema = schemasField.get(key);
+    private boolean isValidSchema(Map<K, V> v, Map<K, BaseSchema<V>> schemas) {
+        for (K key: v.keySet()) {
+            var value = v.get(key);
+            BaseSchema<V> schema = schemas.get(key);
             if (!schema.isValid(value)) {
                 return false;
             }
