@@ -4,7 +4,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=iujhiy_java-project-78&metric=coverage)](https://sonarcloud.io/summary/new_code?id=iujhiy_java-project-78)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=iujhiy_java-project-78&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=iujhiy_java-project-78)
 
-This library is created for data validation, validation schemes are used for checking.
+This library is created for data validation, validation schemes are used for checking
 
 ## Start
 
